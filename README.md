@@ -33,5 +33,6 @@ Jon
 
 Refs for posterity:
 
-• https://discourse.jupyter.org/t/tip-speed-up-binder-launches-by-pulling-github-content-in-a-binder-link-with-nbgitpuller/922
-• https://discourse.jupyter.org/t/how-to-reduce-mybinder-org-repository-startup-time/4956
+- [Separate content and environment repositories](https://discourse.jupyter.org/t/tip-speed-up-binder-launches-by-pulling-github-content-in-a-binder-link-with-nbgitpuller/922)
+- [Other guidance on speeding up Binder launches](https://discourse.jupyter.org/t/how-to-reduce-mybinder-org-repository-startup-time/4956)
+
