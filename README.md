@@ -8,6 +8,9 @@ I then found that the start-up time was pretty poor in Binder and so had to opti
 
 - [Launch the Jupyter Notebook server via Binder](https://mybinder.org/v2/gh/kingsgeocomp/code-camp-env/master?urlpath=git-pull%3Frepo%3Dhttps%253A%252F%252Fgithub.com%252Fkingsgeocomp%252Fcode-camp%26urlpath%3Dtree%252Fcode-camp%252F%26branch%3Dmaster) 
 - You can also [launch individual notebooks directly](https://mybinder.org/v2/gh/kingsgeocomp/code-camp-env/master?urlpath=git-pull%3Frepo%3Dhttps%253A%252F%252Fgithub.com%252Fkingsgeocomp%252Fcode-camp%26urlpath%3Dtree%252Fcode-camp%252Fnotebook-04-errors-and-debugging.ipynb%26branch%3Dmaster)
+- And note too that you can force either repository (Environment or Content) to use a specific branch so that yo uca
+n continue development in one repository without impacting the other; for instance, [this link is tied to branch notebook-v1.0](https://mybinder.org/v2/gh/kingsgeocomp/code-camp-env/notebook-v1.0?urlpath=git-pull%3Frepo%3Dhttps%253A%252F%252Fgithub.com%252Fkingsgeocomp%252Fcode-camp%26urlpath%3Dtree%252Fcode-camp%252F%26branch%3Dmaster) of the En
+vironment Repository, while [this link would use the gds-revamp branch of the content repo and the notebook-v1.0 of the environment repo](https://mybinder.org/v2/gh/kingsgeocomp/code-camp-env/notebook-v1.0?urlpath=git-pull%3Frepo%3Dhttps%253A%252F%252Fgithub.com%252Fkingsgeocomp%252Fcode-camp%26urlpath%3Dtree%252Fcode-camp%252F%26branch%3Dgds-revamp)
 
 So changes to `code-camp` notebooks are still made in that repository but the Binder environment is never rebuilt unless there is a change to [requirements.txt](requirements.txt) or [postBuild](postBuild). The requirements and postBuild files install nbgitpuller so that the latest (or tagged, if you set this up appropriately) version is always re-pulled from GitHub.
 
