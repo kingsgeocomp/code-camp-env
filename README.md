@@ -13,9 +13,9 @@ So changes to `code-camp` notebooks are still made in that repository but the Bi
 
 So to make changes to any of the notebooks in Code Camp (e.g. to get the Q&A format set up in each notebook) you would:
 
-- docker pull jreades/cc:v0.4 (or whatever the most recent version is)
-- cd /path/to/code-camp-repo/
-- docker run —rm -ti -p 8888:8888 --mount type=bind,source="$(pwd)",target=/home/jovyan/ jreades/cc:v.0.4
+- `docker pull jreades/cc:v0.4` ([or whatever the most recent version is](https://hub.docker.com/repository/docker/jreades/cc))
+- `cd /path/to/code-camp-repo/`
+- `docker run —rm -ti -p 8888:8888 --mount type=bind,source="$(pwd)",target=/home/jovyan/ jreades/cc:v.0.4`
 
 You then set up the questions and answers in each notebook, and just commit the updated notebook back into the code-camp repo.
 
