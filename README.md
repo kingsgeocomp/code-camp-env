@@ -18,7 +18,9 @@ So to make changes to any of the notebooks in Code Camp (e.g. to get the Q&A for
 - `docker pull jreades/cc:v0.4` ([or whatever the most recent version is](https://hub.docker.com/repository/docker/jreades/cc))
 - `cd /path/to/code-camp-repo/`
 - `docker run --rm -ti -p 8888:8888 --mount type=bind,source="$(pwd)",target=/home/jovyan/ jreades/cc:v0.4` An alternative (which _might_ work better on Windows) is: `docker run --rm -ti -p 8888:8888 -v $(pwd):/home/jovyan/ jreades/cc:v0.4`
-- Enable the `exercise2` extension in the settings, but to do this you will likely first need to uncheck `disable configuration for nbextensions without explicit compatibility`.
+- Enable the `exercise2` extension in the settings, but to do this you will likely first need to uncheck `disable configuration for nbextensions without explicit compatibility` (see picture below).
+
+![Image of Extensions Configuration](./Extensions.png)
 
 You then set up the questions and answers in each notebook and just commit the updated notebook back into the code-camp repo.
 
