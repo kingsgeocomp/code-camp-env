@@ -1,26 +1,26 @@
 # code-camp-env
 
-This sets up a separate environment to support Code Camp running through MyBinder.org; since Binder uses the SHA hash to determine when it needs to rebuild the docker image, if we separate the env from the actual notebooks this this should save on rebuilds. 
+This repo is designed to provide an environment to support Code Camp running through MyBinder.org; since Binder uses the SHA hash to determine when it needs to rebuild the docker image, if we separate the env from the actual notebooks this allows us to update the notebooks without the environment being rebuilt. 
 
-The driver for this was wanting to use some form of 'Q&A' with Code Camp where the 'A' was hidden from the student unless they chose to reveal it. There are two `nbextensions` options (`exercise` and `exercise2`) and one `labextension` option ([jupyterlab-solutions](https://github.com/rmotr/jupyterlab-solutions)) but the JupyterLab extension appears to have been abandonned and although I could get it to install (and even successfully enabled) I couldn't get the button to show up so that I could start adding answer cells. I've opted for `exercise2` because it makes it more obvious when there is an answer (though it might tempt students to click on it without trying to figure it out for themselves).
+The driver for this approach was wanting to use some form of 'Q&A' with Code Camp where the 'A' was hidden from the student unless they chose to reveal it. There are two `nbextensions` options (`exercise` and `exercise2`) and one `labextension` option ([jupyterlab-solutions](https://github.com/rmotr/jupyterlab-solutions)). The JupyterLab extension appears to have been abandonned, so although I could get it to install (and even successfully enabled) I couldn't get the button to show up in the toolbar. 
 
-I then found that the start-up time was pretty poor in Binder and so had to optimise that which involves splitting the Code Camp into an 'environment repo' and a 'notebook repo' so that Binder doesn't rebuild the image every time you make a commit on a notebook. This seems to work relatively well now: startup takes between 8 and 15 seconds.
+With this in mind, I've opted for `exercise2` because it makes the 'Answer' part more obvious... though it might tempt students to click on it without trying to figure it out for themselves.
 
+So you can now: 
 - [Launch the Jupyter Notebook server via Binder](https://mybinder.org/v2/gh/kingsgeocomp/code-camp-env/master?urlpath=git-pull%3Frepo%3Dhttps%253A%252F%252Fgithub.com%252Fkingsgeocomp%252Fcode-camp%26urlpath%3Dtree%252Fcode-camp%252F%26branch%3Dmaster) 
 - You can also [launch individual notebooks directly](https://mybinder.org/v2/gh/kingsgeocomp/code-camp-env/master?urlpath=git-pull%3Frepo%3Dhttps%253A%252F%252Fgithub.com%252Fkingsgeocomp%252Fcode-camp%26urlpath%3Dtree%252Fcode-camp%252Fnotebook-04-errors-and-debugging.ipynb%26branch%3Dmaster)
-- And note too that you can force either repository (Environment or Content) to use a specific branch so that yo uca
-n continue development in one repository without impacting the other; for instance, [this link is tied to branch notebook-v1.0](https://mybinder.org/v2/gh/kingsgeocomp/code-camp-env/notebook-v1.0?urlpath=git-pull%3Frepo%3Dhttps%253A%252F%252Fgithub.com%252Fkingsgeocomp%252Fcode-camp%26urlpath%3Dtree%252Fcode-camp%252F%26branch%3Dmaster) of the En
-vironment Repository, while [this link would use the gds-revamp branch of the content repo and the notebook-v1.0 of the environment repo](https://mybinder.org/v2/gh/kingsgeocomp/code-camp-env/notebook-v1.0?urlpath=git-pull%3Frepo%3Dhttps%253A%252F%252Fgithub.com%252Fkingsgeocomp%252Fcode-camp%26urlpath%3Dtree%252Fcode-camp%252F%26branch%3Dgds-revamp)
+- And note too that you can force _either_ repository (Environment or Content) to use a specific branch so that you can continue development in one repository without impacting the other; for instance, [this link is tied to branch notebook-v1.0](https://mybinder.org/v2/gh/kingsgeocomp/code-camp-env/notebook-v1.0?urlpath=git-pull%3Frepo%3Dhttps%253A%252F%252Fgithub.com%252Fkingsgeocomp%252Fcode-camp%26urlpath%3Dtree%252Fcode-camp%252F%26branch%3Dmaster) of the Environment Repository, while [this link would use the gds-revamp branch of the content repo and the notebook-v1.0 of the environment repo](https://mybinder.org/v2/gh/kingsgeocomp/code-camp-env/notebook-v1.0?urlpath=git-pull%3Frepo%3Dhttps%253A%252F%252Fgithub.com%252Fkingsgeocomp%252Fcode-camp%26urlpath%3Dtree%252Fcode-camp%252F%26branch%3Dgds-revamp)
 
-So changes to `code-camp` notebooks are still made in that repository but the Binder environment is never rebuilt unless there is a change to [requirements.txt](requirements.txt) or [postBuild](postBuild). The requirements and postBuild files install nbgitpuller so that the latest (or tagged, if you set this up appropriately) version is always re-pulled from GitHub.
+So changes to `code-camp` notebooks are still made in that repository, but the Binder environment is never rebuilt unless there is a change to [requirements.txt](requirements.txt) or [postBuild](postBuild). The requirements and postBuild files install `nbgitpuller` so that the latest (or tagged, if you set this up accordingly) version is always pulled from GitHub.
 
 So to make changes to any of the notebooks in Code Camp (e.g. to get the Q&A format set up in each notebook) you would:
 
 - `docker pull jreades/cc:v0.4` ([or whatever the most recent version is](https://hub.docker.com/repository/docker/jreades/cc))
 - `cd /path/to/code-camp-repo/`
 - `docker run --rm -ti -p 8888:8888 --mount type=bind,source="$(pwd)",target=/home/jovyan/ jreades/cc:v0.4` An alternative (which _might_ work better on Windows) is: `docker run --rm -ti -p 8888:8888 -v $(pwd):/home/jovyan/ jreades/cc:v0.4`
+- Enable the `exercise2` extension in the settings, but to do this you will likely first need to uncheck `disable configuration for nbextensions without explicit compatibility`.
 
-You then set up the questions and answers in each notebook, and just commit the updated notebook back into the code-camp repo.
+You then set up the questions and answers in each notebook and just commit the updated notebook back into the code-camp repo.
 
 To generate a new MyBinder link to launch a specific notebook you can go to: [jupyterhub.github.io/nbgitpuller/link](https://jupyterhub.github.io/nbgitpuller/link). The steps are then:
 
