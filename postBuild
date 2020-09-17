@@ -1,4 +1,5 @@
-jupyter serverextension enable --py nbgitpuller --sys-prefix
-jupyter contrib nbextension install --user
+jupyter contrib nbextension install
+jupyter nbextension enable --py --sys-prefix ipyleaflet
+jupyter serverextension enable --py --sys-prefix nbgitpuller
+jupyter nbextension enable rubberband/main
 jupyter nbextension enable exercise2/main
-jupyter nbextension enable --py widgetsnbextension
