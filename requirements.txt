@@ -1,2 +1,4 @@
 jupyter_contrib_nbextensions
 nbgitpuller
+ipywidgets
+matplotlib
