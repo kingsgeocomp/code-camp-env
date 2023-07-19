@@ -1,4 +1,4 @@
-FROM jupyter/base-notebook:notebook-6.1.3
+FROM jupyter/base-notebook:notebook-6.5.4
 
 ADD ./requirements.txt .
 RUN pip install -r requirements.txt \
